@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Documentation{% endblock %}
+
+{% block body %}
+  <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+  </style>
+
+  <div class="example-wrapper">
+    <h1>Documentation ✅</h1>
+    <h3>Entities</h3>
+    <ul>
+      <li>
+        Course(Id, name)
+      </li>
+      <li>
+        Faculty(Id, name)
+      </li>
+      <li>
+        Student(Id, firstName, lastName, facultyId)
+      </li>
+      <li>
+        Table student_course
+      </li>
+    </ul>
+
+    <h3>Doctrine Associations</h3>
+    <ul>
+      <li>
+        ManyToOne<br>
+        <a href="http://localhost:888/student" target="_blank">http://localhost:888/student</a>
+      </li>
+      <li>
+        OneToMany<br>
+        <a href="http://localhost:888/faculty/1" target="_blank">http://localhost:888/faculty/1</a>
+      </li>
+      <li>
+        ManyToMany<br>
+        <a href="http://localhost:888/course/1" target="_blank">http://localhost:888/course/1</a><br>
+        <a href="http://localhost:888/student/1" target="_blank">http://localhost:888/student/1</a>
+      </li>
+    </ul>
+    <h3>SQL statements of an average complexity</h3>
+    <ul>
+      <li>
+        <b>The most popular course:</b><br>
+        SELECT COUNT(sc.student_id) as countStudent, c.name FROM course c<br>
+        INNER JOIN student_course sc ON sc.course_id = c.id<br>
+        GROUP BY sc.course_id ORDER BY countStudent DESC LIMIT 1;<br>
+        <a href="http://localhost:888/course/select/popular" target="_blank">http://localhost:888/course/select/popular</a>
+      </li>
+      <li>
+        <b>Students without courses:</b><br/>
+        SELECT s.* FROM student s<br>
+        LEFT JOIN student_course sc ON sc.student_id = s.id<br>
+        WHERE sc.student_id IS NULL;<br>
+        <a href="http://localhost:888/student/without/courses" target="_blank">http://localhost:888/student/without/courses</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
