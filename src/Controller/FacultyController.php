@@ -20,7 +20,7 @@ class FacultyController extends AbstractController
     }
 
     #[Route('/faculty/{facultyId}', name: 'app_students_by_faculty')]
-    public function getStudentsByCourse(Request $request, FacultyService $facultyService): Response
+    public function getStudentsByFaculty(Request $request, FacultyService $facultyService): Response
     {
         $facultyId = (int) $request->get('facultyId');
         $faculty = $facultyService->getFacultyById($facultyId);
